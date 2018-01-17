@@ -1,3 +1,26 @@
 <resources>
+
     <string name="app_name">Baking</string>
+    <string name="content_authority">com.hap.baking</string>
+
+    <string name="empty_screen_unknown_error">Oh no! I was not expecting this&#8230;</string>
+    <string name="empty_screen_no_recipes">Seems that there\'s no recipeEntities yet!</string>
+    <string name="empty_screen_network_error">Cannot load the recipeEntities, try again later!</string>
+
+    <string name="activity_recipes">Recipes</string>
+    <string name="recipe_title">Recipe</string>
+    <string name="recipe_ingredients">%d Ingredients</string>
+    <string name="recipe_steps">%d Steps</string>
+    <string name="recipe_servings">%d Servings</string>
+    <string name="step">Step</string>
+
+    <string name="ingredients">Ingredients</string>
+    <string name="ingredient">Ingredient X</string>
+    <string name="measure">Measure</string>
+    <string name="quantity">N</string>
+
+    <string name="video_not_available">Video not available!</string>
+
+    <string name="widget_empty_view">No ingredients available!</string>
+
 </resources>

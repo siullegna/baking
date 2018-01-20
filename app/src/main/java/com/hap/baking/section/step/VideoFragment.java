@@ -1,5 +1,7 @@
 package com.hap.baking.section.step;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.C;
@@ -36,6 +39,7 @@ import com.hap.baking.R;
 import com.hap.baking.db.room.entity.Step;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,6 +57,8 @@ public class VideoFragment extends BaseVideoFragment implements View.OnClickList
     private static final String EXTRA_RESUME_POSITION_KEY = "com.hap.baking.fragment.EXTRA_RESUME_POSITION_KEY";
     private static final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter();
 
+    @BindView(R.id.video_container)
+    RelativeLayout videoContainer;
     @BindView(R.id.video)
     SimpleExoPlayerView video;
     @BindView(R.id.retry_container)
@@ -61,6 +67,7 @@ public class VideoFragment extends BaseVideoFragment implements View.OnClickList
     ImageView retryIcon;
     @BindView(R.id.loader)
     ProgressBar loader;
+    @Nullable
     @BindView(R.id.step_detail)
     TextView stepDetail;
     @BindView(R.id.video_not_available)
@@ -74,6 +81,8 @@ public class VideoFragment extends BaseVideoFragment implements View.OnClickList
     private boolean shouldAutoPlay;
     private int resumeWindow;
     private long resumePosition;
+    private Dialog fullScreenPlayerDialog;
+    private OnVideoFragmentListener mListener;
 
     public VideoFragment() {
         // Required empty public constructor
@@ -116,12 +125,23 @@ public class VideoFragment extends BaseVideoFragment implements View.OnClickList
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof OnVideoFragmentListener) {
+            mListener = (OnVideoFragmentListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnVideoFragmentListener");
+        }
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         shouldAutoPlay = true;
         clearResumePosition();
         mediaDataSourceFactory = (BakingApplication.getInstance()).buildDataSourceFactory(BANDWIDTH_METER);
-        ;
         if (getArguments() != null) {
             step = getArguments().getParcelable(EXTRA_STEP_KEY);
         }
@@ -139,13 +159,27 @@ public class VideoFragment extends BaseVideoFragment implements View.OnClickList
         final View view = inflater.inflate(R.layout.fragment_video, container, false);
         ButterKnife.bind(this, view);
         video.requestFocus();
-        stepDetail.setText(step.getDescription());
 
         retryContainer.setOnClickListener(this);
 
         video.setVisibility(View.VISIBLE);
         retryContainer.setVisibility(View.VISIBLE);
         videoNotAvailable.setVisibility(View.GONE);
+
+        if (stepDetail != null) {
+            stepDetail.setText(step.getDescription());
+        } else if (getActivity() != null) {
+            fullScreenPlayerDialog = new Dialog(getActivity(), android.R.style.Theme_Black_NoTitleBar_Fullscreen) {
+                @Override
+                public void onBackPressed() {
+                    if (mListener != null) {
+                        mListener.onCloseVideo();
+                    }
+                    super.onBackPressed();
+                }
+            };
+            startFullScreenVideo();
+        }
         return view;
     }
 
@@ -189,6 +223,12 @@ public class VideoFragment extends BaseVideoFragment implements View.OnClickList
         if (Util.SDK_INT > 23) {
             releasePlayer();
         }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
     @Override
@@ -276,6 +316,12 @@ public class VideoFragment extends BaseVideoFragment implements View.OnClickList
         }
     }
 
+    private void startFullScreenVideo() {
+        ((ViewGroup) video.getParent()).removeView(video);
+        fullScreenPlayerDialog.addContentView(video, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        fullScreenPlayerDialog.show();
+    }
+
     private class PlayerEventListener extends Player.DefaultEventListener {
 
         @Override
@@ -310,5 +356,19 @@ public class VideoFragment extends BaseVideoFragment implements View.OnClickList
         public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
             updateUI();
         }
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnVideoFragmentListener {
+        void onCloseVideo();
     }
 }

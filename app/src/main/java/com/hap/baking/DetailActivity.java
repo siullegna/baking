@@ -11,13 +11,14 @@ import com.hap.baking.db.room.entity.Ingredient;
 import com.hap.baking.db.room.entity.Step;
 import com.hap.baking.section.ingredient.IngredientFragment;
 import com.hap.baking.section.step.StepDetailFragment;
+import com.hap.baking.section.step.VideoFragment;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DetailActivity extends BaseAppActivity implements StepDetailFragment.OnStepDetailListener {
+public class DetailActivity extends BaseAppActivity implements StepDetailFragment.OnStepDetailListener, VideoFragment.OnVideoFragmentListener {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     private ArrayList<Ingredient> ingredients;
@@ -91,5 +92,10 @@ public class DetailActivity extends BaseAppActivity implements StepDetailFragmen
     @Override
     public void setStepPage(int stepPage) {
         this.stepPosition = stepPage;
+    }
+
+    @Override
+    public void onCloseVideo() {
+        onBackPressed();
     }
 }

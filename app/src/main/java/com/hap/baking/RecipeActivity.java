@@ -17,16 +17,18 @@ import com.hap.baking.db.room.entity.Recipe;
 import com.hap.baking.section.ingredient.IngredientFragment;
 import com.hap.baking.section.step.StepDetailFragment;
 import com.hap.baking.section.step.StepListFragment;
+import com.hap.baking.section.step.VideoFragment;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RecipeActivity extends BaseAppActivity implements StepListFragment.OnStepFragmentListener, StepDetailFragment.OnStepDetailListener {
+public class RecipeActivity extends BaseAppActivity implements StepListFragment.OnStepFragmentListener, StepDetailFragment.OnStepDetailListener,
+        VideoFragment.OnVideoFragmentListener {
     private static final String TAG = RecipeActivity.class.getName();
-    public static final String EXTRA_RECIPE_KEY = "com.hap.baking.EXTRA_RECIPE_KEY";
-    public static final String EXTRA_IS_TWO_PANE_KEY = "com.hap.baking.EXTRA_IS_TWO_PANE_KEY";
+    public static final String EXTRA_RECIPE_KEY = "com.hap.baking.RecipeActivity.EXTRA_RECIPE_KEY";
+    public static final String EXTRA_IS_TWO_PANE_KEY = "com.hap.baking.RecipeActivity.EXTRA_IS_TWO_PANE_KEY";
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -141,5 +143,10 @@ public class RecipeActivity extends BaseAppActivity implements StepListFragment.
         final FragmentManager fm = getSupportFragmentManager();
         final StepListFragment stepListFragment = (StepListFragment) fm.findFragmentById(R.id.steps_fragment);
         stepListFragment.setSelectedItem(++stepPage);
+    }
+
+    @Override
+    public void onCloseVideo() {
+        Log.d(TAG, "nothing happen");
     }
 }

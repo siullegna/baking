@@ -49,6 +49,10 @@ public class ConfigurationBakingWidget extends BakingActivity {
         // then we can read the value for that specific widgetId to load the information we need
         saveWidgetRecipeId(getString(R.string.sp_recipe_prefix, widgetId), recipe.getId());
 
+        // update our widget
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
+        BakingWidget.updateAppWidget(getApplicationContext(), appWidgetManager, widgetId);
+
         setResult(RESULT_OK, resultValue);
         finish();
     }

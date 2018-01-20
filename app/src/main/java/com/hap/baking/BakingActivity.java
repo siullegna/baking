@@ -31,7 +31,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class BakingActivity extends BaseAppActivity implements RecipeAdapter.OnRecipeClickListener {
     private static final String TAG = BakingActivity.class.getName();
-    public static final String EXTRA_IS_FIRST_LOAD_KEY = "com.hap.baking.EXTRA_IS_FIRST_LOAD_KEY";
+    public static final String EXTRA_IS_RECIPE_FROM_WIDGET_KEY = "com.hap.baking.BakingActivity.EXTRA_IS_RECIPE_FROM_WIDGET_KEY";
+    public static final String EXTRA_IS_FIRST_LOAD_KEY = "com.hap.baking.BakingActivity.EXTRA_IS_FIRST_LOAD_KEY";
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @BindView(R.id.toolbar)
@@ -106,6 +107,21 @@ public class BakingActivity extends BaseAppActivity implements RecipeAdapter.OnR
             rvRecipes.setVisibility(View.GONE);
             // load from db if there's something
             getRecipes();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        final Bundle args = getIntent().getExtras();
+        if (args != null) {
+            final boolean isWidget = args.getBoolean(EXTRA_IS_RECIPE_FROM_WIDGET_KEY, false);
+            final Recipe recipe = args.getParcelable(RecipeActivity.EXTRA_RECIPE_KEY);
+            if (isWidget && recipe != null) {
+                onClick(recipe);
+                getIntent().putExtra(EXTRA_IS_RECIPE_FROM_WIDGET_KEY, false);
+            }
         }
     }
 

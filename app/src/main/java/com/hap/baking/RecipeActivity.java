@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.hap.baking.db.room.entity.Ingredient;
 import com.hap.baking.db.room.entity.Recipe;
@@ -50,6 +51,12 @@ public class RecipeActivity extends BaseAppActivity implements StepListFragment.
             recipe = getIntent().getParcelableExtra(EXTRA_RECIPE_KEY);
         } else {
             recipe = savedInstanceState.getParcelable(EXTRA_RECIPE_KEY);
+        }
+
+        if (recipe == null) {
+            Toast.makeText(this, R.string.error_cannot_load_recipe, Toast.LENGTH_LONG).show();
+            finish();
+            return;
         }
 
         final ActionBar actionBar = getSupportActionBar();

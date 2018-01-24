@@ -12,6 +12,7 @@
     <string name="recipe_ingredients">%d Ingredients</string>
     <string name="recipe_steps">%d Steps</string>
     <string name="recipe_servings">%d Servings</string>
+    <string name="error_cannot_load_recipe">Cannot load recipe!</string>
     <string name="step">Step</string>
 
     <string name="ingredients">Ingredients</string>

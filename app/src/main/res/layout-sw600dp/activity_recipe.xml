@@ -30,16 +30,16 @@
         <fragment
             android:id="@+id/steps_fragment"
             android:name="com.hap.baking.section.step.StepListFragment"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/steps_fragment_width"
             android:layout_height="match_parent"
-            android:layout_weight="30" />
+            android:layout_weight="@integer/steps_fragment_weight" />
 
         <FrameLayout
             android:id="@+id/detail_fragment_container"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/detail_fragment_container_width"
             android:layout_height="match_parent"
-            android:layout_margin="16dp"
-            android:layout_weight="70"
+            android:layout_margin="@dimen/detail_fragment_container_margin"
+            android:layout_weight="@integer/detail_fragment_container_weight"
             android:background="@android:color/white" />
     </LinearLayout>
 

@@ -12,16 +12,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="@dimen/widget_header_padding">
 
         <TextView
             android:id="@+id/tv_recipe"
             style="@style/RecipeTextStyle.Widget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginLeft="@dimen/widget_tv_recipe_margin_left"
+            android:layout_marginStart="@dimen/widget_tv_recipe_margin_left"
+            android:layout_marginTop="@dimen/widget_tv_recipe_margin_top"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/recipe_title" />
@@ -31,9 +31,9 @@
             style="@style/IngredientHeaderStyle.Widget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginLeft="@dimen/widget_tv_ingredients_margin_left"
+            android:layout_marginStart="@dimen/widget_tv_ingredients_margin_left"
+            android:layout_marginTop="@dimen/widget_tv_ingredients_margin_top"
             android:text="@string/ingredients" />
 
     </LinearLayout>
@@ -41,7 +41,7 @@
     <FrameLayout
         android:id="@+id/fl_divider"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/widget_divider"
         android:layout_below="@id/ll_header"
         android:background="@color/colorDivider" />
 
@@ -50,12 +50,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/fl_divider"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="@dimen/widget_lv_margin"
+        android:layout_marginLeft="@dimen/widget_lv_margin"
+        android:layout_marginRight="@dimen/widget_lv_margin"
+        android:layout_marginStart="@dimen/widget_lv_margin"
         android:divider="@color/colorDivider"
-        android:dividerHeight="1dp" />
+        android:dividerHeight="@dimen/widget_divider" />
 
     <TextView
         android:id="@+id/tv_no_ingredient"

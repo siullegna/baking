@@ -46,7 +46,7 @@ public class DetailActivity extends BaseAppActivity implements StepDetailFragmen
             stepPosition = getIntent().getIntExtra(StepDetailFragment.EXTRA_STEP_POSITION, 0);
             title = getStepTitle();
         } else {
-            throw new NullPointerException("there's no data to display, please check again!");
+            return;
         }
 
         final ActionBar actionBar = getSupportActionBar();

@@ -2,8 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/video_container"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="60"
+    android:layout_height="@dimen/video_container_height"
     tools:context=".section.step.StepDetailFragment">
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
@@ -44,8 +43,8 @@
         android:visibility="gone">
 
         <ImageView
-            android:layout_width="160dp"
-            android:layout_height="160dp"
+            android:layout_width="@dimen/video_not_found_icon_size"
+            android:layout_height="@dimen/video_not_found_icon_size"
             android:contentDescription="@string/video_not_available"
             android:src="@drawable/video_not_available" />
 
@@ -53,7 +52,7 @@
             style="@style/VideoNotAvailableStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/video_not_found_margin_text"
             android:text="@string/video_not_available" />
 
     </LinearLayout>

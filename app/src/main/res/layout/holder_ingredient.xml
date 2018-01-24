@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:padding="@dimen/ingredient_root_padding">
 
     <TextView
         android:id="@+id/tv_ingredient"
@@ -13,7 +13,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="@dimen/ingredient_text_margin"
         tools:text="@string/ingredient" />
 
     <TextView
@@ -24,7 +24,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/tv_ingredient"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="@dimen/ingredient_measure_margin"
         tools:text="@string/measure" />
 
     <TextView

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:padding="@dimen/recipe_container_padding">
+
+        <TextView
+            android:id="@+id/tv_recipe"
+            style="@style/RecipeTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/recipe_text_margin_horizontal"
+            android:layout_marginStart="@dimen/recipe_text_margin_horizontal"
+            tools:text="@string/recipe_title" />
+
+        <TextView
+            android:id="@+id/tv_ingredients"
+            style="@style/RecipeDetailStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/recipe_text_margin_vertical"
+            app:layout_constraintStart_toStartOf="@id/tv_recipe"
+            app:layout_constraintTop_toBottomOf="@id/tv_recipe"
+            tools:text="@string/recipe_ingredients" />
+
+        <TextView
+            android:id="@+id/tv_steps"
+            style="@style/RecipeDetailStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/recipe_text_margin_vertical"
+            app:layout_constraintStart_toStartOf="@id/tv_recipe"
+            app:layout_constraintTop_toBottomOf="@id/tv_ingredients"
+            tools:text="@string/recipe_steps" />
+
+        <TextView
+            android:id="@+id/tv_servings"
+            style="@style/RecipeDetailStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/recipe_servings"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

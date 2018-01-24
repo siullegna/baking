@@ -1,11 +1,52 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="EmptyScreenTextStyle">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@android:color/darker_gray</item>
+    </style>
+
+    <style name="RecipeTextStyle">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+    </style>
+
+    <style name="RecipeTextStyle.Widget">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="RecipeDetailStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorSecondaryText</item>
+    </style>
+
+    <style name="StepTextStyle">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+    </style>
+
+    <style name="StepDetailStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorSecondaryText</item>
+    </style>
+
+    <style name="IngredientHeaderStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorSecondaryText</item>
+    </style>
+
+    <style name="IngredientHeaderStyle.Widget">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="IngredientSubheaderStyle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorSecondaryText</item>
+    </style>
+
+    <style name="VideoNotAvailableStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorSecondaryText</item>
     </style>
 
 </resources>

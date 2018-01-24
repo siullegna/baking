@@ -1,7 +1,6 @@
 package com.hap.baking;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -72,11 +71,8 @@ public class RecipeActivity extends BaseAppActivity implements StepListFragment.
         stepListFragment.setArguments(args);
         if (detailFragmentContainer != null) {
             isTwoPane = true;
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-            // setup new fragment
         } else {
             isTwoPane = false;
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
     }
 

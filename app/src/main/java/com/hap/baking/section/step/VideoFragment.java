@@ -33,7 +33,6 @@ import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
-import com.google.android.exoplayer2.util.Util;
 import com.hap.baking.BakingApplication;
 import com.hap.baking.R;
 import com.hap.baking.db.room.entity.Step;
@@ -83,6 +82,7 @@ public class VideoFragment extends BaseVideoFragment implements View.OnClickList
     private long resumePosition;
     private Dialog fullScreenPlayerDialog;
     private OnVideoFragmentListener mListener;
+    private boolean isFullScreen = false;
 
     public VideoFragment() {
         // Required empty public constructor
@@ -162,13 +162,11 @@ public class VideoFragment extends BaseVideoFragment implements View.OnClickList
 
         retryContainer.setOnClickListener(this);
 
-        video.setVisibility(View.VISIBLE);
-        retryContainer.setVisibility(View.VISIBLE);
-        videoNotAvailable.setVisibility(View.GONE);
-
         if (stepDetail != null) {
+            isFullScreen = false;
             stepDetail.setText(step.getDescription());
         } else if (getActivity() != null) {
+            isFullScreen = true;
             fullScreenPlayerDialog = new Dialog(getActivity(), android.R.style.Theme_Black_NoTitleBar_Fullscreen) {
                 @Override
                 public void onBackPressed() {
@@ -178,25 +176,16 @@ public class VideoFragment extends BaseVideoFragment implements View.OnClickList
                     super.onBackPressed();
                 }
             };
-            startFullScreenVideo();
+
         }
+
         return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        if (Util.SDK_INT > 23) {
-            initializePlayer();
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (Util.SDK_INT <= 23) {
-            initializePlayer();
-        }
+        initializePlayer();
     }
 
     @Override
@@ -210,19 +199,9 @@ public class VideoFragment extends BaseVideoFragment implements View.OnClickList
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        if (Util.SDK_INT <= 23) {
-            releasePlayer();
-        }
-    }
-
-    @Override
     public void onStop() {
         super.onStop();
-        if (Util.SDK_INT > 23) {
-            releasePlayer();
-        }
+        releasePlayer();
     }
 
     @Override
@@ -268,6 +247,7 @@ public class VideoFragment extends BaseVideoFragment implements View.OnClickList
         }
 
         try {
+            loadingVideo();
             final Uri videoUri = getVideoUri();
             boolean needNewPlayer = player == null;
             if (needNewPlayer) {
@@ -290,13 +270,13 @@ public class VideoFragment extends BaseVideoFragment implements View.OnClickList
             }
             player.prepare(mediaSource, !haveResumePosition, false);
             inErrorState = false;
-            updateUI();
+            videoAvailableScreen();
+            if (isFullScreen) {
+                startFullScreenVideo();
+            }
         } catch (NoVideoAvailableException e) {
             Log.e(TAG, e.getMessage());
-            // show not available screen
-            video.setVisibility(View.GONE);
-            retryContainer.setVisibility(View.GONE);
-            videoNotAvailable.setVisibility(View.VISIBLE);
+            videoNotAvailableScreen();
         }
     }
 
@@ -304,6 +284,37 @@ public class VideoFragment extends BaseVideoFragment implements View.OnClickList
         retryContainer.setVisibility(inErrorState ? View.VISIBLE : View.GONE);
         retryIcon.setVisibility(inErrorState ? View.VISIBLE : View.GONE);
         loader.setVisibility(inErrorState ? View.GONE : View.VISIBLE);
+    }
+
+    private void loadingVideo() {
+        video.setVisibility(View.GONE);
+        retryContainer.setVisibility(View.VISIBLE);
+        retryIcon.setVisibility(View.GONE);
+        loader.setVisibility(View.VISIBLE);
+        videoNotAvailable.setVisibility(View.GONE);
+    }
+
+    private void videoAvailableScreen() {
+        video.setVisibility(View.VISIBLE);
+        retryContainer.setVisibility(View.GONE);
+        videoNotAvailable.setVisibility(View.GONE);
+    }
+
+    private void videoNotAvailableScreen() {
+        video.setVisibility(View.GONE);
+        retryContainer.setVisibility(View.VISIBLE);
+        retryIcon.setVisibility(View.VISIBLE);
+        loader.setVisibility(View.GONE);
+        videoNotAvailable.setVisibility(View.VISIBLE);
+        if (isFullScreen) {
+            if (fullScreenPlayerDialog != null) {
+                ((ViewGroup) retryContainer.getParent()).removeView(retryContainer);
+                ((ViewGroup) videoNotAvailable.getParent()).removeView(videoNotAvailable);
+                fullScreenPlayerDialog.addContentView(retryContainer, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                fullScreenPlayerDialog.addContentView(videoNotAvailable, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                fullScreenPlayerDialog.show();
+            }
+        }
     }
 
     private void releasePlayer() {
@@ -317,6 +328,9 @@ public class VideoFragment extends BaseVideoFragment implements View.OnClickList
     }
 
     private void startFullScreenVideo() {
+        if (fullScreenPlayerDialog == null) {
+            return;
+        }
         ((ViewGroup) video.getParent()).removeView(video);
         fullScreenPlayerDialog.addContentView(video, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         fullScreenPlayerDialog.show();

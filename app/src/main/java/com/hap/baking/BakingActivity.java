@@ -85,12 +85,6 @@ public class BakingActivity extends BaseAppActivity implements RecipeAdapter.OnR
                 getRecipes();
             }
         });
-
-        if (getResources().getBoolean(R.bool.isTablet)) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        } else {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
     }
 
     @Override

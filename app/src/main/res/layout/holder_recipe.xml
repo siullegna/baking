@@ -11,6 +11,16 @@
         android:background="?android:attr/selectableItemBackground"
         android:padding="@dimen/recipe_container_padding">
 
+        <ImageView
+            android:id="@+id/iv_recipe_icon"
+            android:layout_width="@dimen/recipe_icon_size"
+            android:layout_height="@dimen/recipe_icon_size"
+            android:scaleType="centerInside"
+            android:src="@mipmap/ic_recipe"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/tv_recipe"
             style="@style/RecipeTextStyle"
@@ -18,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/recipe_text_margin_horizontal"
             android:layout_marginStart="@dimen/recipe_text_margin_horizontal"
+            app:layout_constraintLeft_toRightOf="@id/iv_recipe_icon"
             tools:text="@string/recipe_title" />
 
         <TextView

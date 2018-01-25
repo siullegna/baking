@@ -56,8 +56,8 @@ dependencies {
     compile "com.facebook.stetho:stetho:$stethoLibVersion"
     compile "com.facebook.stetho:stetho-okhttp3:$stethoLibVersion"
 
-    // Fresco
-    compile "com.facebook.fresco:fresco:$frescoLibVersion"
+    // Picasso
+    compile "com.squareup.picasso:picasso:$rootProject.picassoLibVersion"
 
     // ButterKnife
     compile "com.jakewharton:butterknife:$butterKnifeLibVersion"

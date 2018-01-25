@@ -2,7 +2,6 @@ package com.hap.baking;
 
 import android.app.Application;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
@@ -30,7 +29,6 @@ public class BakingApplication extends Application {
     public void onCreate() {
         super.onCreate();
         userAgent = Util.getUserAgent(this, "ExoPlayerDemo");
-        Fresco.initialize(this);
 
         BakingApplication.INSTANCE = this;
         BakingApplication.sessionPreferences = new SessionPreferences(this);

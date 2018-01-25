@@ -54,6 +54,7 @@ public class VideoFragment extends BaseVideoFragment implements View.OnClickList
     private static final String EXTRA_STEP_KEY = "com.hap.baking.fragment.EXTRA_STEP_KEY";
     private static final String EXTRA_RESUME_WINDOW_KEY = "com.hap.baking.fragment.EXTRA_RESUME_WINDOW_KEY";
     private static final String EXTRA_RESUME_POSITION_KEY = "com.hap.baking.fragment.EXTRA_RESUME_POSITION_KEY";
+    private static final String EXTRA_IS_PLAYING_KEY = "com.hap.baking.fragment.EXTRA_IS_PLAYING_KEY";
     private static final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter();
 
     @BindView(R.id.video_container)
@@ -151,6 +152,7 @@ public class VideoFragment extends BaseVideoFragment implements View.OnClickList
             }
             resumeWindow = savedInstanceState.getInt(EXTRA_RESUME_WINDOW_KEY);
             resumePosition = savedInstanceState.getLong(EXTRA_RESUME_POSITION_KEY);
+            shouldAutoPlay = savedInstanceState.getBoolean(EXTRA_IS_PLAYING_KEY);
         }
     }
 
@@ -216,6 +218,7 @@ public class VideoFragment extends BaseVideoFragment implements View.OnClickList
         updateResumePosition();
         outState.putInt(EXTRA_RESUME_WINDOW_KEY, resumeWindow);
         outState.putLong(EXTRA_RESUME_POSITION_KEY, resumePosition);
+        outState.putBoolean(EXTRA_IS_PLAYING_KEY, shouldAutoPlay);
         super.onSaveInstanceState(outState);
     }
 
@@ -234,11 +237,13 @@ public class VideoFragment extends BaseVideoFragment implements View.OnClickList
         }
         resumeWindow = player.getCurrentWindowIndex();
         resumePosition = Math.max(0, player.getContentPosition());
+        shouldAutoPlay = player.getPlayWhenReady();
     }
 
     private void clearResumePosition() {
         resumeWindow = C.INDEX_UNSET;
         resumePosition = C.TIME_UNSET;
+        shouldAutoPlay = true;
     }
 
     private void initializePlayer() {

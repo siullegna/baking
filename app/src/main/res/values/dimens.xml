@@ -2,6 +2,8 @@
 <resources>
 
     <dimen name="empty_screen_padding">16dp</dimen>
+    <dimen name="recipe_icon_margin">8dp</dimen>
+    <dimen name="recipe_icon_size">56dp</dimen>
     <dimen name="recipe_decoration_space">8dp</dimen>
     <dimen name="recipe_container_padding">8dp</dimen>
     <dimen name="recipe_text_margin_horizontal">8dp</dimen>

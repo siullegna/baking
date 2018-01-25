@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white">
+    android:background="?android:attr/selectableItemBackground"
+    android:padding="@dimen/step_text_padding">
+
+    <ImageView
+        android:id="@+id/iv_step_icon"
+        android:layout_width="@dimen/recipe_icon_size"
+        android:layout_height="@dimen/recipe_icon_size"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:scaleType="centerInside"
+        android:src="@mipmap/ic_recipe" />
 
     <TextView
         android:id="@+id/tv_step"
         style="@style/StepTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/iv_step_icon"
+        android:layout_toStartOf="@id/iv_step_icon"
         android:ellipsize="end"
         android:maxLines="1"
-        android:padding="@dimen/step_text_padding"
         tools:text="@string/step" />
 
-</FrameLayout>
+</RelativeLayout>
